@@ -27,10 +27,10 @@ void calc_fact(int MAX_FACT) {
 }
 const int M = 1e9 + 7;
 int nPr(int n , int r) {
-	int i = n-r+1 , p = 1;
-	while(i<=n) {
-		p = (p*i)%M;
-		i++;
-	}
-	return p;
+    int i = n-r+1 , p = 1;
+    while(i<=n) {
+        p = (p*i)%M;
+        i++;
+    }
+    return p;
 }

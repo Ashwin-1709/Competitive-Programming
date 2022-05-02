@@ -16,7 +16,7 @@ function<void(int , int , int)> dfs = [&](int u , int p , int d) {
     }
 };
 // build maxweight binary lifting
-auto lca = [&]()->void {
+auto lift = [&]()->void {
     for(int i = 1 ; i < LOG ; i++) {
         for(int j = 0 ; j < n ; j++) {
             sparse[i][j] = sparse[i-1][sparse[i-1][j]];

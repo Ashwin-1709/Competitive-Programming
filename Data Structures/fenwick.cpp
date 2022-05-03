@@ -23,8 +23,4 @@ struct fenwick_tree {
     T sum(int l , int r) {
         return sum(r) - sum(l-1);
     }
-    void update(int l , int r , int delta) {
-        update(l , delta);
-        update(r + 1 , -delta); 
-    }
 };

@@ -1,3 +1,4 @@
+// 0 based indexing
 template<typename T>
 struct fenwick_tree {
     vector<T> BIT;

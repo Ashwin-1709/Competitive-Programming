@@ -14,9 +14,8 @@ struct fenwick_tree {
     }
     T sum(int i) {
         T ans{};
-        while (i >= 0) {
+        for( ; i >= 0 ; i = (i & (i + 1 )) - 1) {
             ans += BIT[i];
-            i = (i & (i + 1)) - 1;
         }
         return ans;
     }

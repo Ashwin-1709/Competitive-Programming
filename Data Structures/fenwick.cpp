@@ -7,9 +7,8 @@ struct fenwick_tree {
         BIT.assign(n,0);
     }
     void update(int i, T add) {
-        while (i < n) {
+        for( ; i < n ; i|=(i+1)) {
             BIT[i] += add;
-            i |= (i + 1);
         }
     }
     T sum(int i) {

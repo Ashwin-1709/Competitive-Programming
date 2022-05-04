@@ -12,10 +12,8 @@ struct fenwick_tree
             tree[i] += delta;
     }
     void range(int l , int r , int delta) {
-        update(l , delta);
-        update(r + 1 , -delta);
-        update(l , delta*(l-1));
-        update(r+1 , -delta*r);
+        update(l , delta); update(l , delta*(l - 1));
+        update(r + 1 , -delta); update(r + 1 , -delta*r);
     }
     int query(int i) {
         int res = 0;

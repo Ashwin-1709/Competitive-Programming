@@ -84,6 +84,8 @@ struct LazySegmentTree {
     }
 };
 //n/vector, neutral, lazy neutral, merge, upd, bool range update -> constructor
+// for sum , neutral = 0
+// for min , neutral = 1e18
 function<int(int , int)>merge = [&](int a , int b) {
     return a + b;
 };

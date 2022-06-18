@@ -1,53 +1,38 @@
 struct seg_tree {
-    int size;
+    int n;
     typedef int item;
-    vector<item> values;
-    item NEUTRAL_ELEMENT;
-    function<int(int, int)> op;
-
-    seg_tree(int n, function<int(int, int)> f, vector<int>& a, int neutral) {
-        NEUTRAL_ELEMENT = neutral;
-        init(n, f);
-        build(a);
+    vector<item> tree;
+    const item NEUTRAL_ELEMENT = 0;
+    item merge(item a, item b) {
+        return a + b;
     }
- 
-    inline item merge(item a, item b) {
-        return op(a, b);
-    }
-    inline item single(int a) {
+    item single(int a) {
         return a;
     }
-    void init(int n, function<int(int, int)>& f) {
-        op = f;
-        size = 1;
-        while (size < n) size *= 2;
-        values.assign(2 * size, NEUTRAL_ELEMENT);
+    void init(int n) {
+        this->n = n;
+        tree.resize(2 * n);
     }
-    void build(vector<int>& a, int x, int lx, int rx) {
-        if (rx - lx == 1) {
-            if (lx < (int)a.size())
-                values[x] = single(a[lx]);
-            return;
-        }
-        int m = (lx + rx) / 2;
-        build(a, 2 * x + 1, lx, m);
-        build(a, 2 * x + 2, m, rx);
-        values[x] = merge(values[2 * x + 1], values[2 * x + 2]);
-    }
- 
     void build(vector<int>& a) {
-        build(a, 0, 0, size);
+        for (int i = 0; i < n; i++)
+            tree[n + i] = single(a[i]);
+        for (int i = n - 1; i > 0; --i)
+            tree[i] = merge(tree[i << 1], tree[i << 1 | 1]);
     }
- 
-    item calc(int l, int r, int x, int lx, int rx) {
-        if (lx >= r or l >= rx) return NEUTRAL_ELEMENT;
-        if (lx >= l and rx <= r) return values[x];
-        int m = (lx + rx) / 2;
-        item s1 = calc(l, r, 2 * x + 1, lx, m);
-        item s2 = calc(l, r, 2 * x + 2, m, rx);
-        return merge(s1, s2);
-    } 
-    item calc(int l, int r) {
-        return calc(l, r, 0, 0, size);
+    void update(int p, int value) {
+        tree[p + n] = single(value);
+        p += n;
+        for (int i = p; i > 1; i >>= 1)
+            tree[i >> 1] = merge(tree[i], tree[i ^ 1]);
+    }
+    item query(int l, int r) {
+        item res = NEUTRAL_ELEMENT;
+        for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
+            if (l & 1)
+                res = merge(res, tree[l++]);
+            if (r & 1)
+                res = merge(res, tree[--r]);
+        }
+        return res;
     }
 };

@@ -21,4 +21,8 @@ struct sparse {
         int len = log[r - l];
         return f(table[l][len] , table[r - (1LL << len)][len]);
     }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> b899cad17dddbdf64ab120d67d1f2445101b5eab

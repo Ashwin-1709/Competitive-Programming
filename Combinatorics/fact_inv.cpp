@@ -21,7 +21,7 @@ void calc_fact(int MAX_FACT) {
         fact[i] = (fact[i-1] * i) % MOD;
     }
     inv_fact[MAX_FACT] = mod_inv(fact[MAX_FACT]);
-    for(int i = MAX_FACT - 1 ; i >= 0 i--) {
+    for(int i = MAX_FACT - 1 ; i >= 0 ; i--) {
         inv_fact[i] = (inv_fact[i + 1] * (i + 1)) % MOD; 
     }
 }

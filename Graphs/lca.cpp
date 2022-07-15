@@ -1,30 +1,29 @@
-vector<int>depth(n,0); 
-int sparse[n][20] = {0};
-function<void(int, int)> dfs = [&](int u, int p = -1) {
-    for (auto v : adj[u]) {
-        if (v == p)
-            continue;
+vector<vector<int>>adj(n) , sparse(n , vector<int>(25));
+vector<int>depth(n);
+auto f = [&](auto &&f , int u , int p) -> void{
+    for(auto v : adj[u]) {
+        if(v == p) continue;
         depth[v] = depth[u] + 1;
         sparse[v][0] = u;
-        for (int j = 1; j < LOG; j++) {
-            sparse[v][j] = sparse[sparse[v][j - 1]][j - 1];
+        for(int i = 1 ; i < 25 ; i++) {
+            sparse[v][i] = sparse[sparse[v][i - 1]][i - 1];
         }
-        dfs(v, u);
+        f(f , v , u);
     }
 };
 
-auto lca = [&](int u , int v) -> int {
-    if (depth[u] < depth[v]) swap(u, v);
-    int k = depth[u] - depth[v];
-    for (int j = LOG - 1; j >= 0; j--) {
-        if (1 & (k >> j)) u = sparse[u][j]; // send u up till depth of u , v is same
+auto lca = [&](int a , int b) -> int {
+    if(depth[a] < depth[b]) swap(a , b);
+    int k = depth[a] - depth[b];
+    for(int i = 34 ; i >= 0 ; i--) {
+        if((1 << i) & k) a = sparse[a][i];
     }
-    if (u == v) return u;
-    for (int j = LOG - 1; j >= 0; j--) {
-        if (sparse[u][j] != sparse[v][j]) { // send both u and v up till u = v (common ancestor)
-            u = sparse[u][j]; 
-            v = sparse[v][j];
+    if(a == b) return a;
+    for(int i = 24 ; i >= 0 ; i--) {
+        if(sparse[a][i] != sparse[b][i]) {
+            a = sparse[a][i];
+            b = sparse[b][i];
         }
     }
-    return sparse[u][0];
+    return sparse[a][0];
 };

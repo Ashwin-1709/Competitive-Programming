@@ -15,7 +15,7 @@ auto f = [&](auto &&f , int u , int p) -> void{
 auto lca = [&](int a , int b) -> int {
     if(depth[a] < depth[b]) swap(a , b);
     int k = depth[a] - depth[b];
-    for(int i = 34 ; i >= 0 ; i--) {
+    for(int i = 24 ; i >= 0 ; i--) {
         if((1 << i) & k) a = sparse[a][i];
     }
     if(a == b) return a;

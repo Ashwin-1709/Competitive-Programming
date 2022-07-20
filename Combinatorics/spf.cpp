@@ -10,5 +10,4 @@ void prime_sieve(int MAX_PR) {
             }
         }
     }
- 
 }

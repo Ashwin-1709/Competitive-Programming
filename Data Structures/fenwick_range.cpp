@@ -1,23 +1,32 @@
 // point query
 struct fenwick_tree {
-    vector<int> BIT;
+    vector<int> bit; 
     int n;
     fenwick_tree(int n) {
         this->n = n + 1;
-        BIT.assign(n + 1, 0);
+        bit.assign(n + 1, 0);
     }
-    int sum(int i) {
+    int sum(int idx) {
         int ret = 0;
-        for (++i; i > 0; i -= i & -i)
-            ret += BIT[i];
+        for (++idx; idx > 0; idx -= idx & -idx)
+            ret += bit[idx];
         return ret;
     }
-    void update(int i, int delta) {
-        for (++i; i < n; i += i & -i)
-            BIT[i] += delta;
+    int sum(int l, int r) {
+        return sum(r) - sum(l - 1);
     }
-    void range(int l, int r, int val) {
-        update(l, val);
-        update(r + 1, -val);
+    void add(int idx, int delta) {
+        for (++idx; idx < n; idx += idx & -idx)
+            bit[idx] += delta;
+    }
+    void update(int l, int r, int val) {
+        add(l, val);
+        add(r + 1, -val);
+    }
+    int point(int idx) {
+        int ret = 0;
+        for (++idx; idx > 0; idx -= idx & -idx)
+            ret += bit[idx];
+        return ret;
     }
 };

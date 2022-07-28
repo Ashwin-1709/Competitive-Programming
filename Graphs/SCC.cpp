@@ -18,7 +18,7 @@ struct SCC {
                 transpose[x].pb(i);
         }
     }
-    function<void(int)>topo = [&](int u) {
+    void topo(int u){
         used[u] = 1;
         for(auto x  : adj[u]) {
             if(!used[x]) topo(x);
@@ -26,7 +26,7 @@ struct SCC {
         order.pb(u);
     };
 
-    function<void(int)>dfs = [&](int u) {
+    void dfs(int u) {
         used[u] = 1;
         cmp.pb(u);
         for(auto x : transpose[u])
@@ -55,4 +55,5 @@ struct SCC {
             }
         }
     }
+
 };

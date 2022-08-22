@@ -34,13 +34,13 @@ struct StringHasher {
     }
     // 0 based indexing and [l,r]
     uint64_t fwd_hash(int l , int r) {
-        int64_t h = pre[r + 1] - mul(binpow[r - l + 1], pre[l]);
-        return h < 0 ? h + mod : h;
+        int64_t hsh_val =  (pre[r + 1] - mul(binpow[r - l + 1], pre[l]) + mod) % mod;
+        return hsh_val % mod;
     }
 
     uint64_t rev_hash(int l , int r) {
-        int64_t h = suf[l + 1] - mul(binpow[r - l + 1], suf[r + 2]);
-        return h < 0 ? h + mod : h;
+        int64_t hsh_val = (suf[l + 1] - mul(binpow[r - l + 1], suf[r + 2]) + mod) % mod;
+        return hsh_val % mod;
     }
 
     bool isPal(int l , int r) {

@@ -32,7 +32,7 @@ struct StringHasher {
         for(int i = n ; i >= 1 ; i--)
             suf[i] = (mul(suf[i + 1] , base) + s[i - 1] + 997) % mod;
     }
-
+    // 0 based indexing and [l,r]
     uint64_t fwd_hash(int l , int r) {
         int64_t h = pre[r + 1] - mul(binpow[r - l + 1], pre[l]);
         return h < 0 ? h + mod : h;

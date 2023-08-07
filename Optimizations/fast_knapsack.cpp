@@ -1,5 +1,6 @@
 // INF is bound for total weight sum
 // weights need to be sorted before calling the function
+// Time complexity: O((S√S)/64) where S is the sum of weights
 
 const int INF = 1e6 + 100;
 

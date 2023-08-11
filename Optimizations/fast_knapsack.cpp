@@ -4,12 +4,10 @@ vector<bool> fast_knapsack(vector<int>&weights, int total_wt) {
     return fast_knapsack<min(2 * N, INF)>(weights, total_wt);
 
   vector<bool>knapsack(total_wt + 1, false);
-
-  if(sz(weights) <= 1)
-    return knapsack;
-
-  if(weights.back() * 2LL >= total_wt) {
-    knapsack[weights.back()] = true;
+  knapsack[0] = true;
+  
+  if(sz(weights) <= 1) {
+    knapsack[weights.front()] = true;
     return knapsack;
   }
   

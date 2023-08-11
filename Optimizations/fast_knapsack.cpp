@@ -1,7 +1,7 @@
 template<int N = 1>
-vector<bool> fast_knapsack_product(vector<int>&weights, int total_wt) {
+vector<bool> fast_knapsack(vector<int>&weights, int total_wt) {
   if(total_wt > N)
-    return fast_knapsack_product<min(2 * N, INF)>(weights, total_wt);
+    return fast_knapsack<min(2 * N, INF)>(weights, total_wt);
 
   vector<bool>knapsack(total_wt + 1, false);
 

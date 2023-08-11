@@ -1,0 +1,35 @@
+template<int N = 1>
+vector<bool> fast_knapsack_product(vector<int>&weights, int total_wt) {
+  if(total_wt > N)
+    return fast_knapsack_product<min(2 * N, INF)>(weights, total_wt);
+
+  vector<bool>knapsack(total_wt + 1, false);
+
+  if(sz(weights) <= 1)
+    return knapsack;
+
+  if(weights.back() * 2LL >= total_wt) {
+    knapsack[weights.back()] = true;
+    return knapsack;
+  }
+  
+  map<int, int>compress;
+  for(auto &wt : weights)
+    compress[wt]++;
+  
+  bitset<N>dp;
+  dp.set(0, true);
+  for(auto &[wt, freq] : compress) {
+    while(freq > 2) {
+      compress[2 * wt]++;
+      freq -= 2;
+    }
+
+    while(freq--)
+      dp |= (dp << wt);
+  }
+
+  for(int i = 0; i <= total_wt; i++)
+    knapsack[i] = dp[i];
+  return knapsack;
+}

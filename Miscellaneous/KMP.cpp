@@ -2,26 +2,18 @@
 
 vector<array<int, 2>> KMP(vector<int>&pat, vector<int>&a) {
   int n = sz(a), m = sz(pat);
-  vector<int>lps(m + 1);
-  lps[0] = 0;
-  int cur_len = 0, i = 1, j = 0;
-  while(i < m) {
-    if(pat[i] == pat[cur_len]) {
-      cur_len++;
-      lps[i] = cur_len;
-      i++;
-    } else {
-      if(cur_len != 0) 
-        cur_len = lps[cur_len - 1];
-      else {
-        lps[i] = 0;
-        i++;
-      }
-    }
+  vector<int>lps(m);
+  for(int i = 1; i < m; i++) {
+    int j = lps[i - 1];
+    while(j > 0 and pat[i] != pat[j])
+      j = lps[j - 1];
+    if(pat[i] == pat[j])
+      j++;
+    lps[i] = j;
   }
 
   vector<array<int, 2>>matches;
-  i = 0;
+  int i = 0, j = 0;
   while((n - i) >= (m - j)) {
     if(pat[j] == a[i]) 
       i++, j++;

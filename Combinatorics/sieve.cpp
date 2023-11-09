@@ -1,5 +1,5 @@
 vector<bool> is_prime;
-vector<int>prime;
+vector<int> prime;
 void prime_sieve(int MAX_PR) {
     is_prime.assign(MAX_PR + 1, 1);
     is_prime[0] = is_prime[1] = 0;

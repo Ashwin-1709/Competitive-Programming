@@ -6,26 +6,26 @@ struct node {
         ma[0] = ma[1] = NULL;
     }
 };
-void insert(int x , node* cur) {
-    for(int i = 30 ; i >= 0 ; i--) {
+void insert(int x, node* cur) {
+    for (int i = 30; i >= 0; i--) {
         int b = (x >> i) & 1;
-        if(!cur->ma[b]) cur->ma[b] = new node();
+        if (!cur->ma[b]) cur->ma[b] = new node();
         cur = cur->ma[b];
         cur->cnt++;
-    } 
+    }
 }
-void remove(int x , node* cur) {
-    for(int i = 30 ; i >= 0 ; i--) {
+void remove(int x, node* cur) {
+    for (int i = 30; i >= 0; i--) {
         int b = (x >> i) & 1;
         cur = cur->ma[b];
         cur->cnt--;
     }
 }
-int query(int x , node* cur) {
+int query(int x, node* cur) {
     int mask = 0;
-    for(int i = 30 ; i >= 0 ; i--) {
+    for (int i = 30; i >= 0; i--) {
         int b = (x >> i) & 1;
-        if(cur->ma[b] and cur->ma[b]->cnt > 0) 
+        if (cur->ma[b] and cur->ma[b]->cnt > 0)
             cur = cur->ma[b];
         else {
             cur = cur->ma[b ^ 1];
@@ -34,11 +34,11 @@ int query(int x , node* cur) {
     }
     return mask;
 }
-bool present(int x , node* cur) {
-    for(int i = 30 ; i >= 0 ; i--) {
+bool present(int x, node* cur) {
+    for (int i = 30; i >= 0; i--) {
         int b = (x >> i) & 1;
-        if(!cur->ma[b] or cur->ma[b]->cnt <= 0) return false;
-        cur = cur->ma[b]; 
+        if (!cur->ma[b] or cur->ma[b]->cnt <= 0) return false;
+        cur = cur->ma[b];
     }
     return true;
 }

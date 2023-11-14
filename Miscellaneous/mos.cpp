@@ -1,4 +1,4 @@
-inline int64_t gilbertOrder(int x, int y, int pow, int rotate) {
+inline int64_t hilbertOrder(int x, int y, int pow, int rotate) {
   if (pow == 0) {
     return 0;
   }
@@ -27,7 +27,7 @@ struct query {
     }
 
   inline void calcOrder() {
-    ord = gilbertOrder(l, r, 21, 0);
+    ord = hilbertOrder(l, r, 21, 0);
   }
 };
 
